@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jost", sans-serif;
+}
+
+.box {
+  background-color: #f1f1f1;
+  width: 300px;
+  height: 400px;
+  margin: 50px auto;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.inputData {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.inputField {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.info {
+  text-align: center;
+  animation: fadeIn 1s;
+  padding-top: 50px;
+}
+
+.location {
+  margin-bottom: 10px;
+}
+.location i{
+    padding-right: 10px;
+}
+
+.temp {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.tempmin_max {
+  font-size: 16px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
