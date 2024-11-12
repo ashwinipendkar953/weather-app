@@ -11,12 +11,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HomePage from "./pages/HomePage";
 import CityDetails from "./pages/CityDetails";
-import { useUserContext } from "./context/UserContext";
 import Loader from "./components/Loader";
+import { useSelector } from "react-redux";
 
 function App() {
-  const { state } = useUserContext();
-  const { token, isLoading } = state;
+  const { token, isLoading } = useSelector((state) => state.user);
 
   // Protected Route component
   const ProtectedRoute = ({ children }) => {
@@ -50,7 +49,7 @@ function App() {
           }
         />
       </Routes>
-      <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={3000} />
     </Router>
   );
 }

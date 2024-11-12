@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import CityCard from "../components/CityCard";
 import Loader from "../components/Loader";
-import { useCity } from "../context/CityContext";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { addCity, fetchCities } from "../features/citySlice";
 
 function HomePage() {
-  const { cities, isLoading, isError, message, fetchCities, addCity } =
-    useCity();
+  const dispatch = useDispatch();
+  const { cities, isLoading, isError, message } = useSelector(
+    (state) => state.city
+  );
   const [newCity, setNewCity] = useState("");
 
   useEffect(() => {
-    fetchCities();
-    const interval = setInterval(fetchCities, 3600000);
+    dispatch(fetchCities());
+
+    const fetchCitiesInterval = () => dispatch(fetchCities());
+    const interval = setInterval(fetchCitiesInterval, 3600000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (isError) {
@@ -23,9 +28,8 @@ function HomePage() {
   }, [isError, message]);
 
   const handleAddCity = async () => {
-    await addCity(newCity);
+    await dispatch(addCity(newCity));
     setNewCity("");
-    fetchCities();
   };
 
   if (isLoading) {

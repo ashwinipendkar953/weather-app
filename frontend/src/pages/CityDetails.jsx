@@ -2,17 +2,19 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
-import { useCity } from "../context/CityContext";
+import { useSelector, useDispatch } from "react-redux";
+
 import TemperatureTrendChart from "../components/TemperatureTrendChart";
+import { fetchCityById, fetchCityForecast } from "../features/citySlice";
 
 const CityDetails = () => {
   const { cityName } = useParams();
-  const { city, forecast, isLoading, fetchCityById, fetchCityForecast } =
-    useCity();
+  const dispatch = useDispatch();
+  const { city, forecast, isLoading } = useSelector((state) => state.city);
 
   useEffect(() => {
-    fetchCityById(cityName);
-    fetchCityForecast(cityName);
+    dispatch(fetchCityById(cityName));
+    dispatch(fetchCityForecast(cityName));
   }, [cityName]);
 
   if (isLoading) {

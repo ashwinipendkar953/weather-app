@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/UserContext";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, resetState } from "../features/userSlice";
 
 const Header = () => {
-  const { state, logout, resetState } = useUserContext();
-  const { user } = state;
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   // Logout Handler
   const handleLogout = () => {
-    logout();
-    resetState();
+    dispatch(logout());
+    dispatch(resetState());
     navigate("/login");
     window.location.reload();
   };

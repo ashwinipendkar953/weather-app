@@ -1,7 +1,9 @@
 // src/pages/RegisterPage.js
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/UserContext";
+import { useSelector, useDispatch } from "react-redux";
+import { register, resetState } from "../features/userSlice";
+import { toast } from "react-toastify";
 
 const INITIAL_FORM_DATA = {
   name: "",
@@ -12,16 +14,21 @@ const INITIAL_FORM_DATA = {
 const RegisterPage = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [showPassword, setShowPassword] = useState(false);
-  const { state, register, resetState } = useUserContext();
+  const dispatch = useDispatch();
+  const { isSuccess, message, isError } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (state.isSuccess) {
+    if (isSuccess) {
+      toast.success(message);
       setFormData(INITIAL_FORM_DATA);
       navigate("/login");
-      resetState();
+      dispatch(resetState());
+    } else if (isError) {
+      toast.error(message);
+      dispatch(resetState);
     }
-  }, [state.isSuccess, resetState, navigate]);
+  }, [isSuccess, isError, message, resetState, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +40,7 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    register(formData);
+    dispatch(register(formData));
   };
 
   const handleTogglePassword = () => {

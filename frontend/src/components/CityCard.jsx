@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCity } from "../context/CityContext";
+import { useDispatch } from "react-redux";
+import { fetchCities, removeCity } from "../features/citySlice";
 
 function CityCard({ city }) {
-  const { removeCity, fetchCities } = useCity();
+  const dispatch = useDispatch();
 
   const handleDeleteCity = async (id) => {
-    await removeCity(id);
-    fetchCities();
+    await dispatch(removeCity(id));
+    dispatch(fetchCities());
   };
 
   return (
