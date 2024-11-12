@@ -43,5 +43,5 @@ A comprehensive weather dashboard application built with **React** (frontend) an
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/ashwinipendkar953/weather-app.git
-   cd weather-dashboard
+   cd weather-app
    ```
